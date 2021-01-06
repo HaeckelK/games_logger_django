@@ -1,0 +1,1 @@
+# games_logger_django
