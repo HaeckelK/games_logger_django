@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator
 
 
 class Player(models.Model):
@@ -14,6 +15,9 @@ class Category(models.Model):
     description_short = models.CharField(max_length=50, blank=False)
     description_long = models.CharField(max_length=250, blank=False)
     created_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name}: {self.description_short}"
 
 
 class TimeCategory(Category):
@@ -34,9 +38,12 @@ class Game(models.Model):
     time = models.ForeignKey(TimeCategory, on_delete=models.CASCADE, blank=False)
     platform = models.ForeignKey(PlatformCategory, on_delete=models.CASCADE, blank=False)
     created_on = models.DateTimeField(auto_now_add=True)
-    players_min = models.IntegerField(blank=False)
-    players_min = models.IntegerField(blank=False)
+    players_min = models.PositiveIntegerField(blank=False, validators=[MinValueValidator(1)])
+    players_max = models.PositiveIntegerField(blank=False, validators=[MinValueValidator(1)])
     expands = models.ForeignKey('Game',null=True,blank=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.name}: players ({self.players_min}, {self.players_max})"
 
 
 class Match(models.Model):
@@ -45,4 +52,3 @@ class Match(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE, blank=False)
     comments = models.CharField(max_length=250)
     created_on = models.DateTimeField(auto_now_add=True)
-
