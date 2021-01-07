@@ -34,7 +34,7 @@ class PlatformCategory(Category):
 
 class Game(models.Model):
     name = models.CharField(max_length=30, unique=True, blank=False)
-    genre = models.ForeignKey(GenreCategory, on_delete=models.CASCADE, blank=False)
+    genre = models.ManyToManyField("GenreCategory", related_name="genre")
     time = models.ForeignKey(TimeCategory, on_delete=models.CASCADE, blank=False)
     platform = models.ForeignKey(PlatformCategory, on_delete=models.CASCADE, blank=False)
     created_on = models.DateTimeField(auto_now_add=True)
