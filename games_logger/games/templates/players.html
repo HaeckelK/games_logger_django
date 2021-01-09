@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block page_content %}
+<h1>Players Summary</h1>
+
+<div class="container">
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Played</th>
+                <th scope="col">Won</th>
+                <th scope="col">Lost</th>
+            </tr>
+            </tr>
+        </thead>
+        <tbody>
+            {% for player in players %}
+            <tr>
+                <td><a href="{{player.player.url}}">{{player.player.name}}</a></td>
+                <td>{{player.played}}</td>
+                <td>{{player.won}}</td>
+                <td>{{player.lost}}</td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endblock %}
