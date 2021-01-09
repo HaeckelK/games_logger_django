@@ -8,6 +8,6 @@ def hello_world(request):
 
 def index(request):
     """Landing page"""
-    n = 5
+    n = int(request.GET.get("n", 5))
     context = {"matches": Match.objects.order_by('-created_on')[:n]}
     return render(request, "index.html", context)
