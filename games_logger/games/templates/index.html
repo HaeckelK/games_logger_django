@@ -27,7 +27,7 @@
                         </td>
                         <td>
                         {% for winner in match.winners.all %}
-                        {{winner.name}} 
+                        <a href="{{winner.url}}">{{winner.name}} </a>
                         {% endfor %}
                     </td>
                       </tr>
