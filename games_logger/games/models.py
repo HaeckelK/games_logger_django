@@ -54,6 +54,10 @@ class Game(models.Model):
     def url(self):
         return f"/game/{self.id}"
 
+    # def get_absolute_url(self):
+    #     from django.urls import reverse
+    #     return reverse('games.views.game_detail', args=[str(self.id)])
+
 
 class Match(models.Model):
     players = models.ManyToManyField("Player", related_name="players")

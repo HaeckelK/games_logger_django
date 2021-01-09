@@ -1,6 +1,6 @@
 from collections import namedtuple
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Match, Player, Game
 
 
@@ -48,11 +48,14 @@ def gallery(request):
     return render(request, "gallery.html", context)
 
 def game_detail(request, pk: int):
-    """Player information page."""
-    played = Match.objects.filter(players__in=[pk]).count()
-    won = Match.objects.filter(winners__in=[pk]).count()
-    context = {"player": Player.objects.get(pk=pk),
-               "played": played,
-               "won": won}
-    return render(request, "player.html", context)
+    """Game information page."""
+    context = {"game": Game.objects.get(pk=pk)}
+    return render(request, "game_detail.html", context)
 
+def random_game(request):
+    """Redirect to a game selected at random."""
+    from random import choice
+
+    pks = Game.objects.values_list('pk', flat=True)
+    random_pk = choice(pks)
+    return redirect('game_detail', pk=random_pk)
