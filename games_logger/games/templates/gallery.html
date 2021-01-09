@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block page_content %}
 <h1>Gallery</h1>
 
@@ -9,7 +10,7 @@
         {% endif %}
         <div class="col-md-4">
             <div class="card mb-2">
-                <!-- <img class="card-img-top" src="% static project.image %"> -->
+                <img class="card-img-top" src="{% static game.image %}">
                 <div class="card-body">
                     <h5 class="card-title">{{ game.name }}</h5>
                     <p class="card-text">Players: {{ game.players_min }} to {{game.players_max}}
@@ -27,40 +28,5 @@
     {% endif %}
 
     {% endfor %}
-    <!-- <div class="row">
-        <div class="col-sm">
-            <div class="card mb-2">
-          One of three columns
-        </div>
-        </div>
-        <div class="col-sm">
-          One of three columns
-        </div>
-        <div class="col-sm">
-          One of three columns
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm">
-          One of three columns
-        </div>
-        <div class="col-sm">
-          One of three columns
-        </div>
-        <div class="col-sm">
-          One of three columns
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm">
-          One of three columns
-        </div>
-        <div class="col-sm">
-          One of three columns
-        </div>
-        <div class="col-sm">
-          One of three columns
-        </div>
-      </div> -->
 </div>
 {% endblock %}
