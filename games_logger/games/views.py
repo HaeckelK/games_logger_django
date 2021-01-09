@@ -1,7 +1,7 @@
 from collections import namedtuple
 
 from django.shortcuts import render
-from .models import Match, Player
+from .models import Match, Player, Game
 
 
 DemoPlayer = namedtuple("DemoPlayer", ["player", "played", "won", "lost"])
@@ -40,3 +40,19 @@ def players(request):
     players_data = sorted(players_data, key=lambda x: x.won, reverse=True)
     context = {"players": players_data}
     return render(request, "players.html", context)
+
+
+def gallery(request):
+    games = Game.objects.all().order_by("name")
+    context = {"games": games}
+    return render(request, "gallery.html", context)
+
+def game_detail(request, pk: int):
+    """Player information page."""
+    played = Match.objects.filter(players__in=[pk]).count()
+    won = Match.objects.filter(winners__in=[pk]).count()
+    context = {"player": Player.objects.get(pk=pk),
+               "played": played,
+               "won": won}
+    return render(request, "player.html", context)
+
