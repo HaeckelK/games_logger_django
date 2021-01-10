@@ -59,3 +59,8 @@ def random_game(request):
     pks = Game.objects.values_list('pk', flat=True)
     random_pk = choice(pks)
     return redirect('game_detail', pk=random_pk)
+
+
+def matches(request):
+    context = {"matches": Match.objects.order_by('-created_on')}
+    return render(request, "matches.html", context)
