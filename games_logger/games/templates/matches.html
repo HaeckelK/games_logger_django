@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block page_content %}
+<h1>Matches Summary</h1>
+
+<div class="container">
+    <div class="row">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Counter</th>
+                    <th scope="col">Played</th>
+                    <th scope="col">Game</th>
+                    <th scope="col">Players</th>
+                    <th scope="col">Winners
+                </tr>
+                </tr>
+            </thead>
+            <tbody>
+                {% for match in matches%}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{ match.created_on.date }}</td>
+                    <td><a href="{{match.game.url}}">{{ match.game.name }}</a></td>
+                    <td>
+                        {% for player in match.players.all %}
+                        <a href="{{player.url}}">{{player.name}} </a>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for winner in match.winners.all %}
+                        <a href="{{winner.url}}">{{winner.name}} </a>
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
